@@ -22,22 +22,29 @@
 	
 	<body>
 		<script>
-			var today = new Date(); //Date객체선언
+			var name;
+			var kor;
+			var eng;
+			var total;
+			var avg;
+			
 			function writeBtn(){
-				alert("테스트");
-				console.log(document.querySelector("#name").value); //입력된 글자
-				console.log(document.querySelector("#kor").value);
-				console.log(document.querySelector("#eng").value);
-				var name = document.querySelector("#name").value;
-				var kor = document.querySelector("#kor").value;
-				var eng = document.querySelector("#eng").value;
-				var total = Number(kor)+Number(eng);
-				var avg = total/2;
-				document.querySelector("#t01").innerText=name;
-				document.querySelector("#t02").innerText=kor;
-				document.querySelector("#t03").innerText=eng;
-				document.querySelector("#t04").innerText=total;
-				document.querySelector("#t05").innerText=avg;
+				
+				name = document.querySelector("#name").value;
+				kor = Number(document.querySelector("#kor").value);
+				eng = Number(document.querySelector("#eng").value);
+				total = kor+eng;
+				avg = total/2;
+				var htmlData="";
+				htmlData +="<tr>";
+				htmlData +="<td>홍</td>";
+				htmlData +="<td>100</td>";
+				htmlData +="<td>100</td>";
+				htmlData +="<td>200</td>";
+				htmlData +="<td>100</td>";
+				htmlData +="</tr>";
+				document.querySelector("#content").innerHTML = htmlData ;
+									
 			}
 			
 		</script>
@@ -59,21 +66,16 @@
 				<col style = "width:20%">
 				<col style = "width:20%">
 			</colgroup>
-			<tr>
-				<th>이름</th>
-				<th>국어</th>
-				<th>영어</th>
-				<th>합계</th>
-				<th>평균</th>
-			</tr>
-			
-			<tr>
-				<td id="t01"></td>
-				<td id="t02"></td>
-				<td id="t03"></td>
-				<td id="t04"></td>
-				<td id="t05"></td>
-			</tr>
+			<thead>
+				<tr>
+					<th>이름</th>
+					<th>국어</th>
+					<th>영어</th>
+					<th>합계</th>
+					<th>평균</th>
+				</tr>
+			</thead>
+			<tbody id="content"></tbody>
 			
 		</table>
 		
