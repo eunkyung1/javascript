@@ -16,6 +16,7 @@
 			function btn() {
 				var input1 = Number($("#input1").val());
 				var input2 = Number($("#input2").val());
+				txt="";
 					/*
 					for(var i=1;i<=9;i++){
 					txt += input1+"*"+i+"="+(input1*i)+"<br>";  
@@ -28,15 +29,13 @@
 	
 			for(var i=input1; i<=input2;i++){
 				for(var j=1;j<=9;j++){
-					txt += i+"*"+j+"="+(i*j)+"<br>"
+					txt += i+"*"+j+"="+(i*j)+"<br>";
 				}
 				txt += "<br>";			
-				
 				}
-			
-			
 	
 				$(".main").html(txt);
+				
 					}
 				
 			
