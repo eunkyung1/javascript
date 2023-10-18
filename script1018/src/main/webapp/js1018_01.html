@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>선택자</title>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	</head>
+		<style>
+			*{margin:0; padding: 0;}
+			ul{list-style: none; text-align: center;}
+			li{width: 130px; height: 50px; border: 3px solid black;}
+			
+		</style>
+		<script>
+			$(function(){
+				$("li").click(function(){
+					alert($(this).text());
+					$(this).css({"background":"yellow","border":"3px solid red"}); // css 2개이상을 변경할 때
+					//$(this).css("border","3px solid red"); //css 1개 변경할 때
+					
+				});
+			
+				$("#btn").click(function(){
+					alert("test");
+					$("#list li").eq(2).css("background","green")
+				});
+			
+			
+			});//제이쿼리 
+			
+		</script>
+	<body>
+		<ul id="list">
+			<li>구글</li>
+			<li>네이버</li>
+			<li>다음</li>
+			<li>네이트</li>
+		</ul>
+		<button id="btn">변경</button>
+	</body>
+</html>
