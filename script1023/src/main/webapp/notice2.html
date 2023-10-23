@@ -6,82 +6,41 @@
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/notice.css">
-		<style>
-			img{width: 50px;}
-		</style>
-		<script>
-			$(function(){
-				var pageNo = $("#pageNo").val();
+	<script>
+		var m_url="http://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key=f5eef3421c602c6cb7ea224104795888";
+		$.ajax({
+			url :m_url,
+			type: "get",
+			data:"",
+			dataType:"json",
+			success:function(data){
+				alert("데이터 성공");
+				console.log(data);
+				var mData = data.movieListResult.movieList;
+				var hData="";
+				for(var i=0;i<mData.length;i++){
+				hData += "<tr>";
+				hData += "<td>"+(i+1)+"</td>";
+				hData += "<td>"+mData[i].movieNm+"</td>";
+				hData += "<td>"+mData[i].openDt+"</td>";
+				hData += "<td>"+mData[i].genreAlt+"</td>";
+				hData += "<td>"+mData[i].peopleNm+"</td>";
+				hData += "<td>"+mData[i].companyNm+"</td>";
+				hData += "</tr>";
+				}//for
+				$("#cont").html(hData);
 				
-				var s_url="https://apis.data.go.kr/B551011/PhotoGalleryService1/galleryList1?serviceKey=uFZ4YSya7hmDCWXEfnBu%2BvoNYuH5vbe1jwyGf1XDWuYeDOIQjdewcXZZf5rGmf9vS8XLAWEpRWRVGb0PQ1EGRQ%3D%3D&numOfRows="+pageNo+"&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&_type=xml";
-				$.ajax({
-					url:s_url, 	//요청할 주소
-					type:"get",				//전송방식 - get,post
-					data:"",				//전달할 데이터
-					dataType:"xml",  		//요청한 데이터 타입 - xml,json,html,text
-					success:function(data){ //성공시
-						alert("데이터 성공.");
-						console.log(data);
-						var sData = $(data).find("item");
-						console.log(sData.length);
-						var hData="";
-						for(var i=0;i<sData.length;i++){
-							var galContentId = $(sData[i]).find("galContentId").text();
-							var galTitle = $(sData[i]).find("galTitle").text();
-							var galWebImageUrl = $(sData[i]).find("galWebImageUrl").text();
-							var galCreatedtime= $(sData[i]).find("galCreatedtime").text();
-							var galPhotographyLocation = $(sData[i]).find("galPhotographyLocation").text();
-							console.log("1 :"+galContentId);
-							console.log("2 : "+galTitle);
-							console.log("3 : "+galWebImageUrl);
-							console.log("4 : "+galCreatedtime);
-							console.log("5 : "+galPhotographyLocation);
-							hData += "<tr>";
-							hData += "<td>"+galContentId+"</td>";
-							hData += "<td><a href='#'> "+galTitle+"</a></td>";
-							hData += "<td>"+galCreatedtime+"</td>";
-							hData += "<td>"+galPhotographyLocation+"</td>";
-							hData += "<td><img src ='"+galWebImageUrl+"'></td>";
-							hData += "</tr>";
-							
-							
-						}
-						$("#cont").html(hData);
+			},//success
+			error:function(){
+				alert("데이터 실패.")
+			}//error
 						
-					},
-					error:function(){		//실패시
-						alert("데이터 실패");
-					}
-				})//ajax
-				
-				//페이지 변경
-				$("#pageNo").change(function(){
-					pageNo = $("#pageNo").val();
-					s_url="https://apis.data.go.kr/B551011/PhotoGalleryService1/galleryList1?serviceKey=uFZ4YSya7hmDCWXEfnBu%2BvoNYuH5vbe1jwyGf1XDWuYeDOIQjdewcXZZf5rGmf9vS8XLAWEpRWRVGb0PQ1EGRQ%3D%3D&numOfRows="+pageNo+"&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&_type=xml";
-					$.ajax({
-						url:s_url, 	//요청할 주소
-						type:"get",				//전송방식 - get,post
-						data:"",				//전달할 데이터
-						dataType:"xml",  		//요청한 데이터 타입 - xml,json,html,text
-						success:function(data){ //성공시
-							alert("데이터 성공.");
-							console.log(data);
-						},
-						error:function(){		//실패시
-							alert("데이터 실패");
-						}
-					})//ajax
-					
-					
-				});//change-pageNo
-				
-			});//jquery
-		
-		</script>
-		<style>
-			#pageNo{width: 120px; height: 40px; margin-top: 20px; float:right;}
 			
-		</style>
+			
+			
+			
+		})
+	</script>
 	</head>
 	<body>
 		<nav id="top">
@@ -134,44 +93,32 @@
 					</div>
 				</div>
 			</div>			
-			<div>
-				<select name="pageNo" id="pageNo">
-					<option value="10">10개씩</option>
-					<option value="20">20개씩</option>
-					<option value="30">30개씩</option>
-				</select>
-			</div>
+			
 			<!--게시판 영역-->
 			<div class="notice_conts">
 				<div class="tb_row">
 					<table>
 						<colgroup>
 							<col width="10%">
-							<col width="54%">
+							<col width="37%">
 							<col width="13%">
-							<col width="13%">
+							<col width="15%">
 							<col width="10%">
+							<col width="15%">
 						</colgroup>
 						<thead>
 						<tr>
 							<th>번호</th>
 							<th>제목</th>
-							<th>제작일</th>
-							<th>관광장소</th>
-							<th>이미지</th>
+							<th>개봉일</th>
+							<th>장르</th>
+							<th>감독</th>
+							<th>제작사</th>
 						</tr>
 							
 						</thead>
 						<tbody id="cont">
-						<tr>
-							<td>1</td>
-							<td><a href="#">택배 상품 추적 서비스 일시중단 안내[9/3(일)00:00~05:00]</a></td>
-							<td>관리자</td>
-							<td>2022-11-21</td>
-							<td>100</td>
-						</tr>
 						
-							
 						</tbody>
 					</table>
 					
